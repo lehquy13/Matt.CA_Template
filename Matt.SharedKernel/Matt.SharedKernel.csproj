@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Matt.Auditing\Matt.Auditing.csproj" />
+      <ProjectReference Include="..\Matt.AutoDI\Matt.AutoDI.csproj" />
+      <ProjectReference Include="..\Matt.Paginated\Matt.Paginated.csproj" />
+      <ProjectReference Include="..\Matt.ResultObject\Matt.ResultObject.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.1" />
+      <PackageReference Include="Mapster" Version="7.4.0" />
+      <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
+      <PackageReference Include="MediatR" Version="12.1.1" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    </ItemGroup>
+
+</Project>

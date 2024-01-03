@@ -1,0 +1,19 @@
+﻿{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Matthew",
+  "classifications": [
+    "Web",
+    "ASP.NET",
+    "Clean Architecture"
+  ],
+  "name": "Matt.ca_template",
+  "description": "This is my special template for .NET Core projects which supports some special features like DDD, CA, CQRS, etc.",
+  "identity": "Matt.CA_Template",
+  "shortName": "matt-ca-sln",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "Acme",
+  "preferNameDirectory": true
+}
