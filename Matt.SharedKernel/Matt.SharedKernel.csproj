@@ -4,6 +4,12 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <Title>Matt.Clean_Architecture</Title>
+        <Description>This NuGet package offers a versatile collection of interfaces and classes meticulously crafted to streamline DDD practices, leverage the Specification Pattern, and more.</Description>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/lehquy13/Matt.CA_Template</RepositoryUrl>
+        <PackageTags>ddd</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,6 +25,13 @@
       <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
       <PackageReference Include="MediatR" Version="12.1.1" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="readme.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
     </ItemGroup>
 
 </Project>

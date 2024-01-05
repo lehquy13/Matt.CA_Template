@@ -1,5 +1,7 @@
-﻿using Acme.Application.Contracts.Acme.Users.Commands;
+﻿using Acme.Api.Models;
+using Acme.Application.Contracts.Acme.Users.Commands;
 using Acme.Application.Contracts.Acme.Users.Queries;
+using Acme.Application.Contracts.DataTransferObjects.Users;
 using MapsterMapper;
 using Matt.Paginated;
 using MediatR;
@@ -42,9 +44,17 @@ public class UserController(
 
     [HttpPut]
     [Route("detail/{id}/edit")]
-    public async Task<IActionResult> EditUser([FromBody] UpsertUserCommand editUserCommand)
+    public async Task<IActionResult> EditUser(Guid id, [FromBody] UserModel userModel)
     {
-        var result = await Mediator.Send(editUserCommand);
+        var result = await Mediator.Send(
+            new UpsertUserCommand(
+                new UserForUpsertDto(
+                    id,
+                    userModel.Name,
+                    userModel.City,
+                    userModel.Country
+                )
+            ));
 
         return Ok(result);
     }

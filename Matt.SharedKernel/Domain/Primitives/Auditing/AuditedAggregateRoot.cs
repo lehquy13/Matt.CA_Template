@@ -8,12 +8,12 @@ public abstract class AuditedAggregateRoot<TId> : AggregateRoot<TId>, IAuditedOb
     //Creation
     public DateTime CreationTime { get; init; }
 
-    public string? CreatorId { get; set; }
+    public string? CreatorId { get; init; }
 
     //Modification
-    public DateTime? LastModificationTime { get; }
+    public DateTime? LastModificationTime { get; protected set;}
 
-    public string? LastModifierId { get; set; }
+    public string? LastModifierId { get; protected set; }
 
     protected AuditedAggregateRoot(TId id) : base(id)
     {
