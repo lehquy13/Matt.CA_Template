@@ -104,7 +104,7 @@ internal class ReadOnlyRepositoryImpl<TEntity, TId>
         }
     }
 
-    public async Task<List<TEntity>> GetListAsync(IGetListSpecification<TEntity> spec,
+    public async Task<List<TEntity>> GetListAsync(IPaginatedGetListSpecification<TEntity> spec,
         CancellationToken cancellationToken = default)
     {
         var specificationResult = GetQuery(AppDbContext.Set<TEntity>(), spec);

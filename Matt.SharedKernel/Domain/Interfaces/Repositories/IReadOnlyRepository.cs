@@ -12,7 +12,7 @@ public interface IReadOnlyRepository<TEntity, TId> : IScoped
 
     Task<List<TEntity>> GetListAsync(CancellationToken cancellationToken = default);
 
-    Task<List<TEntity>> GetListAsync(IGetListSpecification<TEntity> spec,
+    Task<List<TEntity>> GetListAsync(IPaginatedGetListSpecification<TEntity> spec,
         CancellationToken cancellationToken = default);
 
     Task<long> CountAsync(CancellationToken cancellationToken = default);

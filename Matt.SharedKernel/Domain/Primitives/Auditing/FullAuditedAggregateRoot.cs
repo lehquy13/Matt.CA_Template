@@ -6,12 +6,12 @@ public abstract class FullAuditedAggregateRoot<TId> : AuditedAggregateRoot<TId>,
     IFullAuditedObject
     where TId : notnull
 {
-    public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; protected set; }
 
-    public DateTime? DeletionTime { get; set; }
+    public DateTime? DeletionTime { get; protected set; }
 
-    public string? DeleterId { get; set; }
-    
+    public string? DeleterId { get; protected set; }
+
     protected FullAuditedAggregateRoot()
     {
     }

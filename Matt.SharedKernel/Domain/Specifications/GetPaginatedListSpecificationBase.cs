@@ -3,7 +3,7 @@
 namespace Matt.SharedKernel.Domain.Specifications;
 
 public abstract class GetPaginatedListSpecificationBase<TEntity>
-    : SpecificationBase<TEntity>, IGetListSpecification<TEntity>
+    : SpecificationBase<TEntity>, IPaginatedGetListSpecification<TEntity>
 {
     public int PageIndex { get; private set; }
 
