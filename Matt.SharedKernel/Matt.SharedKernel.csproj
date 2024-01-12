@@ -10,6 +10,7 @@
         <PackageReadmeFile>readme.md</PackageReadmeFile>
         <RepositoryUrl>https://github.com/lehquy13/Matt.CA_Template</RepositoryUrl>
         <PackageTags>ddd</PackageTags>
+        <Version>1.0.1</Version>
     </PropertyGroup>
 
     <ItemGroup>

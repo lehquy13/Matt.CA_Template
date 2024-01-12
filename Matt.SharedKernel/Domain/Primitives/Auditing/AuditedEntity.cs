@@ -6,9 +6,9 @@ public abstract class AuditedEntity<TId> : CreationAuditedEntity<TId>, IAuditedO
     where TId : notnull
 {
     //Modification
-    public DateTime? LastModificationTime { get; }
+    public DateTime? LastModificationTime { get; protected set;}
 
-    public string? LastModifierId { get; private set; }
+    public string? LastModifierId { get; protected set; }
 
     protected AuditedEntity(TId id) : base(id)
     {

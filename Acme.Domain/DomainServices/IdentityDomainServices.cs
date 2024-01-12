@@ -1,8 +1,9 @@
 ﻿using Acme.Domain.Acme.Users.Identities;
 using Acme.Domain.Acme.Users.ValueObjects;
-using Acme.Domain.DomainServices.Exceptions;
+using Acme.Domain.DomainServices.Errors;
 using Acme.Domain.DomainServices.Interfaces;
 using Matt.ResultObject;
+using Matt.SharedKernel.Domain;
 using Matt.SharedKernel.Domain.Interfaces;
 using Matt.SharedKernel.Domain.Interfaces.Repositories;
 

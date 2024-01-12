@@ -16,5 +16,4 @@
     <ItemGroup>
       <ProjectReference Include="..\Acme.Api.Host\Acme.Api.Host.csproj" />
     </ItemGroup>
-
 </Project>

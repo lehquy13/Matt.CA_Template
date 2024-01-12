@@ -1,6 +1,6 @@
 ﻿using Matt.ResultObject;
 
-namespace Acme.Domain.DomainServices.Exceptions;
+namespace Acme.Domain.DomainServices.Errors;
 
 public static class DomainServiceErrors
 {

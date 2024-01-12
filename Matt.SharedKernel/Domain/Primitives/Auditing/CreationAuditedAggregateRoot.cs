@@ -5,9 +5,9 @@ namespace Matt.SharedKernel.Domain.Primitives.Auditing;
 public abstract class CreationAuditedAggregateRoot<TId> : AggregateRoot<TId>, ICreationAuditedObject
     where TId : notnull
 {
-    public DateTime CreationTime { get; set; }
+    public DateTime CreationTime { get; protected set; }
 
-    public string? CreatorId { get; set; }
+    public string? CreatorId { get; protected set; }
 
     protected CreationAuditedAggregateRoot()
     {

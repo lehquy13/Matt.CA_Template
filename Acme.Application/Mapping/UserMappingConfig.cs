@@ -1,6 +1,5 @@
 ﻿using Acme.Application.Contracts.DataTransferObjects.Authentications;
 using Acme.Application.Contracts.DataTransferObjects.Users;
-using Acme.Domain.Acme;
 using Acme.Domain.Acme.Users;
 using Acme.Domain.Acme.Users.Identities;
 using Mapster;
