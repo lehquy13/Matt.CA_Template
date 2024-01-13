@@ -9,22 +9,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Acme.Persistence.Repository;
 
-internal class ReadOnlyRepositoryImpl<TEntity, TId>
+internal class ReadOnlyRepositoryImpl<TEntity, TId>(
+    AppDbContext appDbContext,
+    IAppLogger<RepositoryImpl<TEntity, TId>> logger)
     : IReadOnlyRepository<TEntity, TId>,
         IOpenGenericService<IReadOnlyRepository<TEntity, TId>>
     where TEntity : Entity<TId>, IAggregateRoot<TId>
     where TId : notnull
 {
-    protected readonly AppDbContext AppDbContext;
-    protected readonly IAppLogger<RepositoryImpl<TEntity, TId>> Logger;
+    protected readonly AppDbContext AppDbContext = appDbContext;
+    protected readonly IAppLogger<RepositoryImpl<TEntity, TId>> Logger = logger;
     protected readonly string ErrorMessage = "{Message} with exception: {Ex}";
 
-    public ReadOnlyRepositoryImpl(
-        AppDbContext appDbContext,
-        IAppLogger<RepositoryImpl<TEntity, TId>> logger)
+    public async Task<List<TEntity>> GetListAsync(IPaginatedGetListSpecification<TEntity> spec,
+        CancellationToken cancellationToken = default)
     {
-        AppDbContext = appDbContext;
-        Logger = logger;
+        var specificationResult = GetQuery(AppDbContext.Set<TEntity>(), spec);
+
+        return await specificationResult.AsNoTracking().ToListAsync(cancellationToken);
     }
 
     public async Task<long> CountAsync(CancellationToken cancellationToken = default)
@@ -51,7 +53,7 @@ internal class ReadOnlyRepositoryImpl<TEntity, TId>
     {
         try
         {
-            return AppDbContext.Set<TEntity>().AsQueryable<TEntity>();
+            return AppDbContext.Set<TEntity>().AsQueryable<TEntity>().AsNoTracking();
         }
         catch (Exception ex)
         {
@@ -84,6 +86,19 @@ internal class ReadOnlyRepositoryImpl<TEntity, TId>
         return query;
     }
 
+    public async Task<TEntity?> GetAsync(TId id, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            return await AppDbContext.Set<TEntity>().FindAsync([id], cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ErrorMessage, "Error in GetAsync", ex.Message);
+            return null;
+        }
+    }
+
     public async Task<TEntity?> GetAsync(ISpecification<TEntity> spec, CancellationToken cancellationToken = default)
     {
         var specificationResult = GetQuery(AppDbContext.Set<TEntity>(), spec);
@@ -104,7 +119,7 @@ internal class ReadOnlyRepositoryImpl<TEntity, TId>
         }
     }
 
-    public async Task<List<TEntity>> GetListAsync(IPaginatedGetListSpecification<TEntity> spec,
+    public async Task<List<TEntity>> GetListAsync(IGetListSpecification<TEntity> spec,
         CancellationToken cancellationToken = default)
     {
         var specificationResult = GetQuery(AppDbContext.Set<TEntity>(), spec);

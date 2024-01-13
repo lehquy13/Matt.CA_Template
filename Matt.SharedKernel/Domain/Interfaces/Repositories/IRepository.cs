@@ -8,12 +8,6 @@ public interface IRepository<TEntity, TId>
     where TId : notnull
 {
     /// <summary>
-    /// Get all the record of tables and able to query with linq due to the Queryable return
-    /// Consider to remove this method
-    /// </summary>
-    IQueryable<TEntity> GetAll();
-
-    /// <summary>
     /// Find the entity by the entity's Id and return the entity with ChangeTracker
     /// </summary>
     /// <param name="id"></param>
