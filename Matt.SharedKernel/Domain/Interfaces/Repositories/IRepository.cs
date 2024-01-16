@@ -22,6 +22,31 @@ public interface IRepository<TEntity, TId>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task InsertAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken));
+    
+    /// <summary>
+    /// Insert multiple entities to the database
+    /// </summary>
+    /// <param name="entities"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task InsertManyAsync(List<TEntity> entities, CancellationToken cancellationToken = default(CancellationToken));
+
+    /// <summary>
+    /// Updates an existing entity.
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates multiple entities.
+    /// </summary>
+    /// <param name="entities"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task UpdateManyAsync(IEnumerable<TEntity> entities, 
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Remove the entity from the database by the entity's Id
@@ -31,6 +56,11 @@ public interface IRepository<TEntity, TId>
     /// <returns></returns>
     Task<bool> RemoveAsync(TId spec, CancellationToken cancellationToken = default(CancellationToken));
 
-    Task RemoveManyAsync(IEnumerable<TId> ids, bool autoSave = false,
-        CancellationToken cancellationToken = default(CancellationToken));
+    /// <summary>
+    /// Remove multiple entities from the database by the entity's Ids
+    /// </summary>
+    /// <param name="ids"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task RemoveManyAsync(IEnumerable<TId> ids, CancellationToken cancellationToken = default(CancellationToken));
 }

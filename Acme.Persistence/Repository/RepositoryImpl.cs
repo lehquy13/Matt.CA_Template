@@ -5,6 +5,7 @@ using Matt.SharedKernel.Domain.Interfaces.Repositories;
 using Matt.SharedKernel.Domain.Primitives;
 using Matt.SharedKernel.Domain.Primitives.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Acme.Persistence.Repository;
 
@@ -32,6 +33,42 @@ internal class RepositoryImpl<TEntity, TId> :
         }
     }
 
+    public async Task InsertManyAsync(List<TEntity> entities, CancellationToken cancellationToken = default(CancellationToken))
+    {
+        try
+        {
+            await AppDbContext.Set<TEntity>().AddRangeAsync(entities, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ErrorMessage, "Error in InsertManyAsync", ex.Message);
+        }
+    }
+    
+    public async Task<TEntity> UpdateAsync(TEntity entity,  CancellationToken cancellationToken = default)
+    {
+        await Task.CompletedTask;
+        AppDbContext.Attach(entity);
+
+        var updatedEntity = AppDbContext.Update(entity).Entity;
+
+        return updatedEntity;
+    }
+
+    public async Task UpdateManyAsync(IEnumerable<TEntity> entities,  CancellationToken cancellationToken = default)
+    {
+        await Task.CompletedTask;
+        var entityArray = entities.ToArray();
+        
+        if (entityArray.IsNullOrEmpty())
+        {
+            return;
+        }
+
+        AppDbContext.Set<TEntity>().UpdateRange(entityArray);
+    }
+
+
     public async Task<bool> RemoveAsync(TId id, CancellationToken cancellationToken = default)
     {
         try
@@ -50,19 +87,15 @@ internal class RepositoryImpl<TEntity, TId> :
         }
     }
 
-    public async Task RemoveManyAsync(IEnumerable<TId> ids, bool autoSave = false,
+    public async Task RemoveManyAsync(IEnumerable<TId> ids, 
         CancellationToken cancellationToken = default(CancellationToken))
     {
+        await Task.CompletedTask;
         try
         {
             var deleteRecords = AppDbContext.Set<TEntity>().Where(x => ids.Contains(x.Id));
 
             AppDbContext.Set<TEntity>().RemoveRange(deleteRecords);
-
-            if (autoSave)
-            {
-                await AppDbContext.SaveChangesAsync(cancellationToken);
-            }
         }
         catch (Exception ex)
         {
