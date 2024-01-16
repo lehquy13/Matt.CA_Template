@@ -20,11 +20,11 @@ internal class RepositoryImpl<TEntity, TId> :
     {
     }
 
-    public async Task InsertAsync(TEntity entity)
+    public async Task InsertAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         try
         {
-            await AppDbContext.Set<TEntity>().AddAsync(entity);
+            await AppDbContext.Set<TEntity>().AddAsync(entity, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -32,11 +32,11 @@ internal class RepositoryImpl<TEntity, TId> :
         }
     }
 
-    public async Task<bool> RemoveAsync(TId id)
+    public async Task<bool> RemoveAsync(TId id, CancellationToken cancellationToken = default)
     {
         try
         {
-            var deleteRecord = await AppDbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id));
+            var deleteRecord = await AppDbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken: cancellationToken);
 
             if (deleteRecord == null) return false;
 
@@ -50,13 +50,33 @@ internal class RepositoryImpl<TEntity, TId> :
         }
     }
 
-    public async Task<TEntity?> FindAsync(TId id)
+    public async Task RemoveManyAsync(IEnumerable<TId> ids, bool autoSave = false,
+        CancellationToken cancellationToken = default(CancellationToken))
+    {
+        try
+        {
+            var deleteRecords = AppDbContext.Set<TEntity>().Where(x => ids.Contains(x.Id));
+
+            AppDbContext.Set<TEntity>().RemoveRange(deleteRecords);
+
+            if (autoSave)
+            {
+                await AppDbContext.SaveChangesAsync(cancellationToken);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ErrorMessage, "GetAllListAsync", ex.Message);
+        }
+    }
+
+    public async Task<TEntity?> FindAsync(TId id, CancellationToken cancellationToken = default)
     {
         try
         {
             return await AppDbContext
                 .Set<TEntity>()
-                .FirstOrDefaultAsync(x => x.Id.Equals(id));
+                .FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken: cancellationToken);
         }
         catch (Exception ex)
         {
