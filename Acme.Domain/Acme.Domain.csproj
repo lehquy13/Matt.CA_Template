@@ -7,7 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Acme.Domain.Shared\Acme.Domain.Shared.csproj" />
+      <Folder Include="Specifications\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Matt.SharedKernel" Version="1.0.9.9" />
     </ItemGroup>
 
 </Project>

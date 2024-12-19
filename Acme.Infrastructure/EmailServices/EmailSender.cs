@@ -1,63 +1,57 @@
 using System.Net;
 using System.Net.Mail;
-using Acme.Application.Contracts.Interfaces.Infrastructures;
+using Acme.Application.Interfaces;
+using Acme.Infrastructure.Models;
 using FluentEmail.Core;
 using FluentEmail.Smtp;
 using Microsoft.Extensions.Options;
 
 namespace Acme.Infrastructure.EmailServices;
 
-internal class EmailSender : IEmailSender
+internal class EmailSender(IOptions<EmailSettingNames> options) : IEmailSender
 {
-    private readonly EmailSettings _emailSettings;
+    private readonly EmailSettingNames _emailSettingNames = options.Value;
 
-    public EmailSender(IOptions<EmailSettings> options)
+    public async Task Send(string email, string subject, string message)
     {
-        _emailSettings = options.Value;
-    }
+        var senderMail = _emailSettingNames.Email;
+        var pw = _emailSettingNames.Password;
 
-    public async Task SendEmail(string email, string subject, string message, bool isHtml = false)
-    {
-        var senderMail = _emailSettings.Email;
-        var pw = _emailSettings.Password;
-
-        var client = new SmtpClient(_emailSettings.SmtpClient, _emailSettings.Port)
+        var client = new SmtpClient(_emailSettingNames.SmtpClient, _emailSettingNames.Port)
         {
-            EnableSsl = _emailSettings.EnableSsl
+            EnableSsl = _emailSettingNames.EnableSsl
         };
-        client.UseDefaultCredentials = _emailSettings.UseDefaultCredentials;
+        client.UseDefaultCredentials = _emailSettingNames.UseDefaultCredentials;
         client.Credentials = new NetworkCredential(senderMail, pw);
+
 
         Email.DefaultSender = new SmtpSender(client);
 
-        //should make use of this
-        var response = await Email
+        // Should make use of this
+        _ = await Email
             .From(senderMail).To(email)
-            .Subject(subject).Body(message, isHtml)
+            .Subject(subject).Body(message)
             .SendAsync();
     }
 
-    public async Task SendEmailWithAttachment(string email, string subject, string message, string fullPath,
-        bool isHtml = false)
+    public async Task SendHtml(string email, string subject, string template)
     {
-        var senderMail = _emailSettings.Email;
-        var pw = _emailSettings.Password;
+        var senderMail = _emailSettingNames.Email;
+        var pw = _emailSettingNames.Password;
 
-        var client = new SmtpClient(_emailSettings.SmtpClient, _emailSettings.Port)
+        var client = new SmtpClient(_emailSettingNames.SmtpClient, _emailSettingNames.Port)
         {
-            EnableSsl = _emailSettings.EnableSsl
+            EnableSsl = _emailSettingNames.EnableSsl
         };
-        client.UseDefaultCredentials = _emailSettings.UseDefaultCredentials;
+        client.UseDefaultCredentials = _emailSettingNames.UseDefaultCredentials;
         client.Credentials = new NetworkCredential(senderMail, pw);
+
 
         Email.DefaultSender = new SmtpSender(client);
 
-        //should make use of this
-        var response = await Email
+        _ = await Email
             .From(senderMail).To(email)
-            .Subject(subject).Body(message, isHtml)
-            .AttachFromFilename(fullPath,
-                attachmentName: Path.GetFileName(fullPath))
+            .Subject(subject).Body(template, true)
             .SendAsync();
     }
 }

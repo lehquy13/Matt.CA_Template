@@ -1,5 +1,5 @@
-using Acme.Application.Contracts.Acme.Authentications.Commands;
-using Acme.Application.Contracts.Acme.Authentications.Queries;
+using Acme.Application.ServiceImpls.Accounts.Commands;
+using Acme.Application.ServiceImpls.Accounts.Queries;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -9,8 +9,9 @@ namespace Acme.Api.Controllers;
 
 public class AuthenticationController(
     IMapper mapper,
-    ILogger<ApiController> logger,
-    IMediator mediator) : ApiController(mapper, logger, mediator)
+    ILogger<AuthenticationController> logger,
+    IMediator mediator
+) : ApiController(mapper, logger, mediator)
 {
     [HttpPost]
     [Route("login")]

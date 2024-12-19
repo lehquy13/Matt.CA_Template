@@ -1,13 +1,15 @@
-﻿using Acme.Application.Contracts.Interfaces.Infrastructures;
+﻿using Acme.Application.Interfaces;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
-using Matt.SharedKernel.Domain.Interfaces;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Acme.Infrastructure.CloudServices;
 
-internal class CloudinaryService(IOptions<CloudinarySetting> cloudinarySetting, IAppLogger<CloudinaryService> logger)
-    : ICloudService
+internal class BlobStorageService(
+    IOptions<CloudinarySetting> cloudinarySetting,
+    ILogger<IBlobStorageService> logger
+) : IBlobStorageService
 {
     private Cloudinary Cloudinary { get; set; } = new(
         new Account(

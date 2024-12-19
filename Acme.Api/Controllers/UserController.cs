@@ -1,5 +1,5 @@
-﻿using Acme.Application.Contracts.Acme.Users.Commands;
-using Acme.Application.Contracts.Acme.Users.Queries;
+﻿using Acme.Application.ServiceImpls.Administrator.Users.Commands;
+using Acme.Application.ServiceImpls.Administrator.Users.Queries;
 using MapsterMapper;
 using Matt.Paginated;
 using MediatR;
@@ -10,8 +10,8 @@ namespace Acme.Api.Controllers;
 public class UserController(
     IMapper mapper,
     ILogger<UserController> logger,
-    IMediator mediator)
-    : AuthorizeApiController(mapper, logger, mediator)
+    IMediator mediator
+) : AuthorizeApiController(mapper, logger, mediator)
 {
     [HttpGet]
     [Route("")]
@@ -23,26 +23,17 @@ public class UserController(
     }
 
     [HttpGet]
-    [Route("{id}")]
+    [Route("{id:guid}")]
     public async Task<IActionResult> GetUser([FromRoute] Guid id)
     {
-        var user = await Mediator.Send(new GetUserBasicQuery(id));
-
-        return Ok(user);
-    }
-
-    [HttpGet]
-    [Route("detail/{id}")]
-    public async Task<IActionResult> GetDetail([FromRoute] Guid id)
-    {
-        var user = await Mediator.Send(new GetUserBasicQuery(id));
+        var user = await Mediator.Send(new GetUserByIdQuery(id));
 
         return Ok(user);
     }
 
     [HttpPut]
-    [Route("detail/{id}/edit")]
-    public async Task<IActionResult> EditUser([FromBody] UpsertUserCommand editUserCommand)
+    [Route("detail/{id:guid}/edit")]
+    public async Task<IActionResult> EditUser(Guid id, [FromBody] UpsertUserCommand editUserCommand)
     {
         var result = await Mediator.Send(editUserCommand);
 
@@ -50,7 +41,7 @@ public class UserController(
     }
 
     [HttpDelete]
-    [Route("detail/{id}/delete")]
+    [Route("detail/{id:guid}/delete")]
     public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
     {
         var result = await Mediator.Send(new DeleteUserCommand(id));

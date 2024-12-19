@@ -1,25 +1,62 @@
 ﻿using System.Security.Claims;
+using Matt.ResultObject;
 using Matt.SharedKernel.Application.Contracts.Interfaces.Infrastructures;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using WePrepClass.Application.Interfaces;
 
 namespace Acme.Infrastructure.Authentication;
 
 internal class CurrentUserService : ICurrentUserService
 {
-    public string? CurrentUserId { get; }
-    public bool IsAuthenticated { get; }
-    public string? CurrentUserEmail { get; }
-    public string? CurrentUserFullName { get; }
+    private readonly IEnumerable<Claim> _claims = null!;
+    private const string PermissionClaimType = "permissions";
 
-    public CurrentUserService(IHttpContextAccessor httpContextAccessor)
+    public List<string> Permissions => GetClaimValues(PermissionClaimType);
+    public List<string> Roles => GetClaimValues(ClaimTypes.Role);
+    public bool IsAuthenticated => UserId != Guid.Empty;
+
+    public Guid UserId
     {
-        var userId = httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier);
-        if (userId != null)
+        get
         {
-            CurrentUserId = userId.Value;
-            IsAuthenticated = true;
-            CurrentUserEmail = httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Email)?.Value;
-            CurrentUserFullName = httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Name)?.Value;
+            var userId = GetSingleClaimValue(ClaimTypes.NameIdentifier);
+
+            return string.IsNullOrEmpty(userId)
+                ? Guid.Empty
+                : Guid.Parse(userId);
         }
     }
+
+    public string Email => GetSingleClaimValue(ClaimTypes.Email);
+    public string FullName => GetSingleClaimValue(ClaimTypes.Name);
+    public string Tenant => GetSingleClaimValue(ClaimTypes.Actor);
+
+    public CurrentUserService(
+        IJwtTokenGenerator jwtTokenGenerator,
+        IHttpContextAccessor httpContextAccessor,
+        ILogger<CurrentUserService> logger)
+    {
+        if (httpContextAccessor.HttpContext is null)
+        {
+            logger.LogInformation("HttpContext is null in CurrentUserService");
+
+            return;
+        }
+
+        var token = httpContextAccessor.HttpContext.Request.Headers.Authorization;
+
+        _claims = jwtTokenGenerator.ValidateToken(token.ToString().Split(" ").Last());
+    }
+
+    public Result Authenticated() => UserId == Guid.Empty ? Result.Unauthorized() : Result.Success();
+
+    private List<string> GetClaimValues(string claimType) =>
+        _claims
+            .Where(claim => claim.Type == claimType)
+            .Select(claim => claim.Value)
+            .ToList();
+
+    private string GetSingleClaimValue(string claimType) =>
+        _claims.SingleOrDefault(claim => claim.Type == claimType)?.Value ?? string.Empty;
 }

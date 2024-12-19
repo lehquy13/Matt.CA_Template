@@ -7,11 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Interfaces\Acme\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Acme.Domain.Shared\Acme.Domain.Shared.csproj" />
+      <ProjectReference Include="..\Acme.Domain\Acme.Domain.csproj" />
     </ItemGroup>
 
 </Project>
