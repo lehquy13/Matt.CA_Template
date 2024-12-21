@@ -1,4 +1,7 @@
-﻿namespace Acme.Infrastructure.Models;
+﻿// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
+
+namespace Acme.Infrastructure.Models;
 
 public class JwtSettings
 {

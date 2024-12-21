@@ -19,14 +19,14 @@ public class UpsertUserCommandValidatorUnitTests
     private const string District = "Ba Dinh";
     private const string Street = "123 Hoang Hoa Tham Street";
 
-    private readonly UpsertUserCommandValidator _validator = new();
+    private readonly CreateUserCommandValidator _validator = new();
 
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenValid_ShouldPass()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             UserName,
             Mail,
             PhoneNumber,
@@ -54,7 +54,7 @@ public class UpsertUserCommandValidatorUnitTests
         // Arrange
         const string invalidUserName = "John Doe";
 
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             invalidUserName,
             Mail,
             PhoneNumber,
@@ -74,14 +74,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.Username));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.Username));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenUsernameLengthLessThan6_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             "user",
             Mail,
             PhoneNumber,
@@ -101,14 +101,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.Username));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.Username));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenUsernameLengthGreaterThan20_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             new string('a', 21),
             Mail,
             PhoneNumber,
@@ -128,14 +128,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.Username));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.Username));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenUsernameDoesNotMatchRegex_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             "invalid username",
             Mail,
             PhoneNumber,
@@ -155,14 +155,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.Username));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.Username));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenEmailIsInvalid_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             UserName,
             "invalid-email",
             PhoneNumber,
@@ -182,14 +182,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.Email));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.Email));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenPhoneNumberDoesNotMatchRegex_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             UserName,
             Mail,
             "invalid-phone",
@@ -209,14 +209,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.PhoneNumber));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.PhoneNumber));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenPasswordLengthLessThan8_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             UserName,
             Mail,
             PhoneNumber,
@@ -236,14 +236,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.Password));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.Password));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenPasswordDoesNotMatchRegex_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             UserName,
             Mail,
             PhoneNumber,
@@ -263,14 +263,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.Password));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.Password));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenFirstNameIsEmpty_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             UserName,
             Mail,
             PhoneNumber,
@@ -290,14 +290,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.FirstName));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.FirstName));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenFirstNameLengthLessThanMin_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             UserName,
             Mail,
             PhoneNumber,
@@ -317,14 +317,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.FirstName));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.FirstName));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenFirstNameLengthGreaterThanMax_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             UserName,
             Mail,
             PhoneNumber,
@@ -344,14 +344,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.FirstName));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.FirstName));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenLastNameIsEmpty_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             UserName,
             Mail,
             PhoneNumber,
@@ -371,14 +371,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.LastName));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.LastName));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenLastNameLengthLessThanMin_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             UserName,
             Mail,
             PhoneNumber,
@@ -398,14 +398,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.LastName));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.LastName));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenLastNameLengthGreaterThan20_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             UserName,
             Mail,
             PhoneNumber,
@@ -425,14 +425,14 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.LastName));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.LastName));
     }
 
     [Fact]
     public void ValidateUpsertUserCommand_WhenBirthYearNotInRange_ShouldFail()
     {
         // Arrange
-        var command = new UpsertUserCommand(
+        var command = new CreateUserCommand(
             UserName,
             Mail,
             PhoneNumber,
@@ -452,6 +452,6 @@ public class UpsertUserCommandValidatorUnitTests
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(UpsertUserCommand.BirthYear));
+        validationResult.Errors.Should().Contain(e => e.PropertyName == nameof(CreateUserCommand.BirthYear));
     }
 }

@@ -1,4 +1,4 @@
-namespace WePrepClass.Application.Interfaces;
+namespace Acme.Application.Interfaces;
 
 public interface IValidator
 {

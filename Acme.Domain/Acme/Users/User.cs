@@ -3,7 +3,6 @@ using Acme.Domain.Acme.Users.ValueObjects;
 using Acme.Domain.Commons.User;
 using Matt.ResultObject;
 using Matt.SharedKernel;
-using Matt.SharedKernel.Application.Authorizations;
 using Matt.SharedKernel.Domain.Interfaces;
 using Matt.SharedKernel.Domain.Primitives.Auditing;
 using Role = Acme.Domain.Commons.User.Role;
@@ -131,4 +130,6 @@ public class User : FullAuditedAggregateRoot<UserId>
     }
 }
 
+// ReSharper disable NotAccessedPositionalProperty.Global
 public record UserDeactivatedDomainEvent(User User) : IDomainEvent; // TODO: remove the account
+// ReSharper restore NotAccessedPositionalProperty.Global

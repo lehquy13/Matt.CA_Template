@@ -1,5 +1,6 @@
 // ReSharper disable ReplaceAutoPropertyWithComputedProperty
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace Acme.Infrastructure.Models;
 

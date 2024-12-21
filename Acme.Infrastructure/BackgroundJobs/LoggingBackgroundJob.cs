@@ -6,7 +6,7 @@ namespace Acme.Infrastructure.BackgroundJobs;
 [DisallowConcurrentExecution] // Mark that this job can't be run in parallel
 internal class LoggingBackgroundJob(ILogger<LoggingBackgroundJob> logger) : IJob
 {
-    private static int _count = 0;
+    private static int _count;
 
     public async Task Execute(IJobExecutionContext context)
     {

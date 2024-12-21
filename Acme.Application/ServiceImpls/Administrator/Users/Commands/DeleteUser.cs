@@ -1,4 +1,5 @@
-﻿using Acme.Domain.Acme.Users;
+﻿using Acme.Domain.Acme;
+using Acme.Domain.Acme.Users;
 using Acme.Domain.Acme.Users.ValueObjects;
 using Matt.ResultObject;
 using Matt.SharedKernel.Application.Mediators.Commands;
@@ -17,7 +18,7 @@ internal class DeleteUserCommandHandler(
     {
         var user = await userRepository.GetByIdAsync(UserId.Create(command.Id), cancellationToken);
 
-        if (user is null) return Result.Fail(UserAppServiceError.UserNotFound);
+        if (user is null) return Result.Fail(DomainErrors.Users.NotFound);
 
         user.Deactivate();
 

@@ -1,10 +1,10 @@
 ﻿using Acme.Application.Contracts.Authentications;
+using Acme.Application.Interfaces;
 using Acme.Domain.Acme.Users;
 using Acme.Domain.Acme.Users.ValueObjects;
 using FluentValidation;
 using Matt.ResultObject;
 using Matt.SharedKernel.Application.Mediators.Queries;
-using WePrepClass.Application.Interfaces;
 
 namespace Acme.Application.ServiceImpls.Accounts.Queries;
 

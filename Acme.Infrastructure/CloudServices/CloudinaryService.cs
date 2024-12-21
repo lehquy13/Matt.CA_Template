@@ -45,7 +45,7 @@ internal class BlobStorageService(
         catch (Exception ex)
         {
             logger.LogError("{ExMessage}", ex.Message);
-            return @"https://res.cloudinary.com/dhehywasc/image/upload/v1686121404/default_avatar2_ws3vc5.png";
+            return "https://res.cloudinary.com/dhehywasc/image/upload/v1686121404/default_avatar2_ws3vc5.png";
         }
     }
 

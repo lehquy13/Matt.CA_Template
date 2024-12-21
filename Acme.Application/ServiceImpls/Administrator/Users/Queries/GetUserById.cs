@@ -1,4 +1,5 @@
 ﻿using Acme.Application.Contracts.Users;
+using Acme.Domain.Acme;
 using Acme.Domain.Acme.Users;
 using Acme.Domain.Acme.Users.ValueObjects;
 using Matt.ResultObject;
@@ -20,7 +21,7 @@ public class GetUserByIdQueryHandler(
 
         if (user is null)
         {
-            return Result.Fail(UserAppServiceError.UserNotFound);
+            return Result.Fail(DomainErrors.Users.NotFound);
         }
 
         var userDetailDto = new UserDetailDto(

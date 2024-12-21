@@ -5,7 +5,6 @@ using FluentValidation;
 using Matt.ResultObject;
 using Matt.SharedKernel.Application.Mediators.Commands;
 using Matt.SharedKernel.Domain.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace Acme.Application.ServiceImpls.Accounts.Commands;
 
@@ -31,7 +30,7 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
             .NotEmpty()
             .MinimumLength(3)
             .MaximumLength(50)
-            .Matches(@"^[a-zA-Z0-9_]+$") // Only letters, numbers, and underscores
+            .Matches("^[a-zA-Z0-9_]+$") // Only letters, numbers, and underscores
             .WithMessage(
                 "Username must be between 3 and 50 characters long, and can only contain letters, numbers, and underscores.");
 

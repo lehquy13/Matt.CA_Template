@@ -1,3 +1,6 @@
+using Acme.Api.Middlewares;
+using Acme.Application;
+using Acme.Infrastructure;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,7 +8,10 @@ builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 
 // Add services to the container.
-//builder.Services.AddHost(builder.Configuration); // Must add!
+builder.Services
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration)
+    .AddPersistence(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -16,12 +22,11 @@ builder.Services.AddSwaggerGen(c =>
         Title = "Matt_Acme_Api",
         Version = "3.0",
         Description = "This is the settings for Acme API",
-         
     });
     c.EnableAnnotations();
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
-        Description = @"Enter 'bearer' [space] and your token",
+        Description = "Enter 'bearer' [space] and your token",
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
@@ -44,7 +49,6 @@ builder.Services.AddSwaggerGen(c =>
             new List<string>()
         }
     });
-    
 });
 
 var app = builder.Build();
@@ -58,7 +62,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseExceptionHandler();
 
-//app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.AddInfrastructureMiddleware();
 
 app.UseHttpsRedirection();
 

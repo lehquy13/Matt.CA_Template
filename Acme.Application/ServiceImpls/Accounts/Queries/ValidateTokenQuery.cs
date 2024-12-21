@@ -1,7 +1,6 @@
-﻿using MapsterMapper;
+﻿using Acme.Application.Interfaces;
 using Matt.ResultObject;
 using Matt.SharedKernel.Application.Mediators.Queries;
-using WePrepClass.Application.Interfaces;
 
 namespace Acme.Application.ServiceImpls.Accounts.Queries;
 

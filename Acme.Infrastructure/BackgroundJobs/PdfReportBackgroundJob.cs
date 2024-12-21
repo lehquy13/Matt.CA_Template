@@ -1,19 +1,12 @@
-﻿using Acme.Infrastructure.EmailServices;
-using Matt.ResultObject;
+﻿using Matt.ResultObject;
 using Matt.SharedKernel.Domain.Interfaces;
-using Matt.SharedKernel.Domain.Interfaces.Emails;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Quartz;
 
 namespace Acme.Infrastructure.BackgroundJobs;
 
 [DisallowConcurrentExecution] // Mark that this job can't be run in parallel
-internal class PdfReportBackgroundJob(
-    ILogger<PdfReportBackgroundJob> logger,
-    IEmailSender emailSender,
-    IOptions<EmailSettings> emailSettings
-) : IJob
+internal class PdfReportBackgroundJob(ILogger<PdfReportBackgroundJob> logger) : IJob
 {
     private Task<Result> GeneratePdfAsync()
     {

@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Matt.SharedKernel.Application.Authorizations;
 
-namespace WePrepClass.Application.Interfaces;
+namespace Acme.Application.Interfaces;
 
 public interface IJwtTokenGenerator
 {

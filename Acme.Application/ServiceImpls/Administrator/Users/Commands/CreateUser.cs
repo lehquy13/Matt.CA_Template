@@ -1,4 +1,5 @@
-﻿using Acme.Domain.Acme.Users;
+﻿using Acme.Domain.Acme;
+using Acme.Domain.Acme.Users;
 using Acme.Domain.Acme.Users.ValueObjects;
 using Acme.Domain.Commons.User;
 using FluentValidation;
@@ -8,7 +9,7 @@ using Matt.SharedKernel.Domain.Interfaces;
 
 namespace Acme.Application.ServiceImpls.Administrator.Users.Commands;
 
-public record UpsertUserCommand(
+public record CreateUserCommand(
     string Username,
     string Email,
     string PhoneNumber,
@@ -24,9 +25,9 @@ public record UpsertUserCommand(
     Gender Gender
 ) : ICommandRequest;
 
-public class UpsertUserCommandValidator : AbstractValidator<UpsertUserCommand>
+public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
-    public UpsertUserCommandValidator()
+    public CreateUserCommandValidator()
     {
         RuleFor(x => x.Username)
             .NotEmpty()
@@ -70,13 +71,13 @@ public class UpsertUserCommandValidator : AbstractValidator<UpsertUserCommand>
     }
 }
 
-public class UpsertUserCommandHandler(
+public class CreateUserCommandHandler(
     IIdentityService identityService,
     IUserRepository userRepository,
     IUnitOfWork unitOfWork
-) : CommandHandlerBase<UpsertUserCommand>(unitOfWork)
+) : CommandHandlerBase<CreateUserCommand>(unitOfWork)
 {
-    public override async Task<Result> Handle(UpsertUserCommand command, CancellationToken cancellationToken)
+    public override async Task<Result> Handle(CreateUserCommand command, CancellationToken cancellationToken)
     {
         var address = Address.Create(command.City, command.District, command.DetailAddress);
 
@@ -86,36 +87,24 @@ public class UpsertUserCommandHandler(
 
         if (user is not null)
         {
-            var actionResult = user.Update(
-                command.FirstName,
-                command.LastName,
-                command.Gender,
-                command.BirthYear,
-                address.Value,
-                command.Description,
-                command.Avatar
-            );
-
-            if (actionResult.IsFailed) return Result.Fail(actionResult.Error);
+            return Result.Fail(DomainErrors.Users.UserAlreadyExist);
         }
-        else
-        {
-            var result = await identityService.CreateAsync(
-                command.Username,
-                command.FirstName,
-                command.LastName,
-                command.Gender,
-                command.BirthYear,
-                address.Value,
-                command.Description,
-                command.Avatar,
-                command.Email,
-                command.PhoneNumber);
 
-            if (!result.IsSuccess) return Result.Fail(result.Error);
+        var result = await identityService.CreateAsync(
+            command.Username,
+            command.FirstName,
+            command.LastName,
+            command.Gender,
+            command.BirthYear,
+            address.Value,
+            command.Description,
+            command.Avatar,
+            command.Email,
+            command.PhoneNumber);
 
-            userRepository.Insert(result.Value, cancellationToken);
-        }
+        if (!result.IsSuccess) return Result.Fail(result.Error);
+
+        userRepository.Insert(result.Value, cancellationToken);
 
         await UnitOfWork.SaveChangesAsync(cancellationToken);
 

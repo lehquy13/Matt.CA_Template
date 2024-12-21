@@ -33,7 +33,7 @@ public class UserController(
 
     [HttpPut]
     [Route("detail/{id:guid}/edit")]
-    public async Task<IActionResult> EditUser(Guid id, [FromBody] UpsertUserCommand editUserCommand)
+    public async Task<IActionResult> EditUser(Guid id, [FromBody] CreateUserCommand editUserCommand)
     {
         var result = await Mediator.Send(editUserCommand);
 

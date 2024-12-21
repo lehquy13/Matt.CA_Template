@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using WePrepClass.Application.Interfaces;
+using Acme.Application.Interfaces;
 
 namespace Acme.Infrastructure.Authentication;
 
