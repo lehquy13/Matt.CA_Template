@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace Acme.Infrastructure.Persistence.EntityFrameworkCore;
 
-public class IdentityDbContext(DbContextOptions<IdentityDbContext> options)
+public class AuthDbContext(DbContextOptions<AuthDbContext> options)
     : IdentityDbContext<IdentityUser, IdentityRole, string>(options)
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -37,15 +37,15 @@ public class IdentityDbContext(DbContextOptions<IdentityDbContext> options)
     }
 }
 
-public class IdentityDbContextFactory : IDesignTimeDbContextFactory<IdentityDbContext>
+public class IdentityDbContextFactory : IDesignTimeDbContextFactory<AuthDbContext>
 {
-    public IdentityDbContext CreateDbContext(string[] args)
+    public AuthDbContext CreateDbContext(string[] args)
     {
-        var optionsBuilder = new DbContextOptionsBuilder<IdentityDbContext>();
+        var optionsBuilder = new DbContextOptionsBuilder<AuthDbContext>();
         optionsBuilder.UseSqlServer(
             "Server=(localdb)\\MSSQLLocalDB; Database=ca_dev_identity_1; Trusted_Connection=True;MultipleActiveResultSets=true"
         );
 
-        return new IdentityDbContext(optionsBuilder.Options);
+        return new AuthDbContext(optionsBuilder.Options);
     }
 }

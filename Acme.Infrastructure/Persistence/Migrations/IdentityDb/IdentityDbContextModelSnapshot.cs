@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace WePrepClass.Persistence.Migrations.IdentityDb
 {
-    [DbContext(typeof(IdentityDbContext))]
+    [DbContext(typeof(AuthDbContext))]
     partial class IdentityDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

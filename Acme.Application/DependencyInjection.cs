@@ -38,12 +38,11 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddApplicationMappings(this IServiceCollection services,
-        Assembly applicationAssembly)
+    private static IServiceCollection AddApplicationMappings(this IServiceCollection services, Assembly assembly)
     {
         var config = TypeAdapterConfig.GlobalSettings;
 
-        config.Scan(applicationAssembly, applicationAssembly);
+        config.Scan(assembly);
 
         services.AddSingleton(config);
         services.AddScoped<IMapper, ServiceMapper>();

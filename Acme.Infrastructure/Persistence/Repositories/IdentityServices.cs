@@ -19,7 +19,7 @@ public class IdentityService(
     SignInManager<IdentityUser> signInManager,
     UserManager<IdentityUser> userManager,
     IEmailSender emailSender,
-    ILogger logger
+    ILogger<IdentityService> logger
 ) : DomainServiceBase, IIdentityService
 {
     public async Task<IdentityDto?> SignInAsync(

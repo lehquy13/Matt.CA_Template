@@ -10,7 +10,7 @@ namespace Acme.Infrastructure.Persistence;
 internal sealed class UnitOfWork(
     ILogger<UnitOfWork> logger,
     AppDbContext appDbContext,
-    IdentityDbContext identityDbContext,
+    AuthDbContext authDbContext,
     ICurrentUserService currentUserService
 ) : IUnitOfWork
 {
@@ -22,7 +22,7 @@ internal sealed class UnitOfWork(
         logger.LogInformation("Saving changes...");
 
         var appSaved = await appDbContext.SaveChangesAsync(cancellationToken);
-        var identitySaved = await identityDbContext.SaveChangesAsync(cancellationToken);
+        var identitySaved = await authDbContext.SaveChangesAsync(cancellationToken);
 
         return appSaved + identitySaved;
     }

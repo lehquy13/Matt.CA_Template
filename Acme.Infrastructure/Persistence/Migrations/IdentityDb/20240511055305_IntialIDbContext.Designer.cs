@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Acme.Infrastructure.Persistence.Migrations.IdentityDb
 {
-    [DbContext(typeof(IdentityDbContext))]
+    [DbContext(typeof(AuthDbContext))]
     [Migration("20240511055305_InitialIDbContext")]
     partial class InitialIDbContext
     {

@@ -47,6 +47,8 @@ public class JwtTokenGenerator(IOptions<JwtSettings> options) : IJwtTokenGenerat
 
     public IEnumerable<Claim> ValidateToken(string token)
     {
+        if (string.IsNullOrWhiteSpace(token)) return [];
+
         var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
         var tokenHandler = new JwtSecurityTokenHandler();
 

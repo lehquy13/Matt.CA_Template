@@ -24,7 +24,6 @@ public class LoginQueryValidator : AbstractValidator<LoginQuery>
 
         RuleFor(x => x.Password)
             .NotEmpty()
-            .MinimumLength(8)
             .WithMessage("Password must be at least 8 characters long.");
     }
 }

@@ -13,15 +13,12 @@ internal class ValidationBehavior<TRequest, TResponse>(IValidator<TRequest>? val
         CancellationToken cancellationToken)
     {
         if (validator == null) return await next();
+
         // before the handler
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         // after the handler
-        if (!validationResult.IsValid)
-        {
-            var errors = validationResult.Errors.ToList();
-            throw new Exception(errors.FirstOrDefault()?.ErrorMessage);
-        }
+        if (!validationResult.IsValid) throw new ValidationException(validationResult.Errors);
 
         return await next();
     }

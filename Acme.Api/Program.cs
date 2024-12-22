@@ -1,55 +1,18 @@
-using Acme.Api.Middlewares;
+using Acme.Api;
 using Acme.Application;
 using Acme.Infrastructure;
-using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
-builder.Services.AddProblemDetails();
+
 
 // Add services to the container.
 builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration)
-    .AddPersistence(builder.Configuration);
+    .AddPersistence(builder.Configuration)
+    .AddPresentation(builder.Host);
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo()
-    {
-        Title = "Matt_Acme_Api",
-        Version = "3.0",
-        Description = "This is the settings for Acme API",
-    });
-    c.EnableAnnotations();
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-    {
-        Description = "Enter 'bearer' [space] and your token",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                },
-                Scheme = "oauth2",
-                Name = "Bearer",
-                In = ParameterLocation.Header,
-            },
-            new List<string>()
-        }
-    });
-});
 
 var app = builder.Build();
 
@@ -61,6 +24,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseExceptionHandler();
+
+app.UseSerilogRequestLogging();
 
 app.AddInfrastructureMiddleware();
 

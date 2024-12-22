@@ -6,6 +6,6 @@ internal class UserMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        throw new NotImplementedException();
+        config.NewConfig<Acme.Domain.Acme.Users.User, Contracts.Users.UserDetailDto>();
     }
 }

@@ -6,9 +6,11 @@ using Acme.Infrastructure.CloudServices;
 using Acme.Infrastructure.EmailServices;
 using Acme.Infrastructure.Middleware;
 using Acme.Infrastructure.Models;
+using Acme.Infrastructure.Persistence;
 using Acme.Infrastructure.Persistence.EntityFrameworkCore;
 using Acme.Infrastructure.Persistence.Repositories;
 using Matt.SharedKernel.Application.Contracts.Interfaces.Infrastructures;
+using Matt.SharedKernel.Domain.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -65,7 +67,7 @@ public static class DependencyInjection
     public static IServiceCollection AddPersistence(this IServiceCollection services,
         ConfigurationManager configuration)
     {
-        services.AddDbContext<IdentityDbContext>(options =>
+        services.AddDbContext<AuthDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultIdentityConnection"))
         );
 
@@ -73,7 +75,9 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
         );
 
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IReadDbContext, ReadDbContext>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         services
             .AddIdentity<IdentityUser, IdentityRole>(options =>
@@ -95,7 +99,7 @@ public static class DependencyInjection
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
             })
-            .AddEntityFrameworkStores<IdentityDbContext>()
+            .AddEntityFrameworkStores<AuthDbContext>()
             .AddDefaultTokenProviders();
 
         services.AddScoped<IIdentityService, IdentityService>();
