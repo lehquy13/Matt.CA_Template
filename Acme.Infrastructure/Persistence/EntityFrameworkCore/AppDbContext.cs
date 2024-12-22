@@ -51,7 +51,7 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
         optionsBuilder.UseSqlServer(
-            "Server=(localdb)\\MSSQLLocalDB; Database=acme; Trusted_Connection=True;MultipleActiveResultSets=true"
+            "Server=(localdb)\\MSSQLLocalDB; Database=ca_acme_2; Trusted_Connection=True;MultipleActiveResultSets=true"
         );
 
         return new AppDbContext(optionsBuilder.Options);

@@ -1,6 +1,58 @@
-@local = http://localhost:5210
+@local = https://localhost:7101
 
-GET {{local}}/weatherforecast/
-Accept: application/json
+# curl -X 'POST' 
+#  'https://localhost:7101/api/authentication/login' 
+#  -H 'accept: */*' 
+#  -H 'Content-Type: application/json' 
+#  -d '{
+#  "email": "ca_dev1@ca.com",
+#  "password": "1q2w3E**"
+#}'
+POST {{local}}/api/authentication/login
+accept: */*
+Content-Type: application/json
+
+{
+  "email": "ca_dev1@ca.com",
+  "password": "1q2w3E**"
+}
 
 ###
+
+# curl -X 'POST' 
+#  'https://localhost:7101/api/authentication/register' 
+#  -H 'accept: */*' 
+#  -H 'Content-Type: application/json' 
+#  -d '{
+#  "username": "ca_dev1",
+#  "email": "ca_dev1@ca.com",
+#  "phoneNumber": "0123123123",
+#  "password": "1q2w3E**",
+#  "firstName": "string",
+#  "lastName": "string",
+#  "birthYear": 2000,
+#  "city": "string",
+#  "country": "string",
+#  "detailAddress": "string",
+#  "gender": 1
+#}'
+POST {{local}}/api/authentication/register
+accept: */*
+Content-Type: application/json
+
+{
+  "username": "ca_dev1",
+  "email": "ca_dev1@ca.com",
+  "phoneNumber": "0123123123",
+  "password": "1q2w3E**",
+  "firstName": "string",
+  "lastName": "string",
+  "birthYear": 2000,
+  "city": "string",
+  "country": "string",
+  "detailAddress": "string",
+  "gender": 1
+}
+
+###
+

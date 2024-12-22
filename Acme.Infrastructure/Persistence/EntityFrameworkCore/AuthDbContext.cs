@@ -43,7 +43,7 @@ public class IdentityDbContextFactory : IDesignTimeDbContextFactory<AuthDbContex
     {
         var optionsBuilder = new DbContextOptionsBuilder<AuthDbContext>();
         optionsBuilder.UseSqlServer(
-            "Server=(localdb)\\MSSQLLocalDB; Database=ca_dev_identity_1; Trusted_Connection=True;MultipleActiveResultSets=true"
+            "Server=(localdb)\\MSSQLLocalDB; Database=ca_acme_identity_2; Trusted_Connection=True;MultipleActiveResultSets=true"
         );
 
         return new AuthDbContext(optionsBuilder.Options);
