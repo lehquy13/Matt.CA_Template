@@ -1,22 +1,17 @@
 ﻿using Acme.Infrastructure.Persistence.EntityFrameworkCore;
-using Matt.AutoDI;
 using Matt.SharedKernel.Domain.Interfaces.Repositories;
 using Matt.SharedKernel.Domain.Primitives;
 using Matt.SharedKernel.Domain.Primitives.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Acme.Infrastructure.Persistence.Repositories;
 
 internal class RepositoryImpl<TEntity, TId>(
     AppDbContext appDbContext,
-    ILogger<RepositoryImpl<TEntity, TId>> logger)
-    : ReadOnlyRepositoryImpl<TEntity, TId>(appDbContext, logger),
-        IRepository<TEntity, TId>,
-        IOpenGenericService<IRepository<TEntity, TId>>
-    where TEntity : Entity<TId>, IAggregateRoot<TId>
-    where TId : notnull
+    ILogger<RepositoryImpl<TEntity, TId>> logger
+) : ReadOnlyRepositoryImpl<TEntity, TId>(appDbContext, logger),
+    IRepository<TEntity, TId> where TEntity : Entity<TId>, IAggregateRoot<TId> where TId : notnull
 {
     public async Task InsertAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
@@ -52,17 +47,13 @@ internal class RepositoryImpl<TEntity, TId>(
         return updatedEntity;
     }
 
-    public async Task UpdateManyAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+    public Task UpdateManyAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
     {
-        await Task.CompletedTask;
         var entityArray = entities.ToArray();
 
-        if (entityArray.IsNullOrEmpty())
-        {
-            return;
-        }
-
         AppDbContext.Set<TEntity>().UpdateRange(entityArray);
+
+        return Task.CompletedTask;
     }
 
 

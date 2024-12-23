@@ -1,9 +1,9 @@
 ﻿using Acme.Application.Contracts.Users;
 using Acme.Application.Interfaces;
-using Matt.Paginated;
-using Matt.ResultObject;
+using Matt.SharedKernel.Results;
 using Matt.SharedKernel.Application.Contracts.Interfaces;
 using Matt.SharedKernel.Application.Mediators.Queries;
+using Matt.SharedKernel.Paginations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Acme.Application.ServiceImpls.Administrator.Users.Queries;

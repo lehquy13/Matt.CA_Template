@@ -3,9 +3,8 @@ using Acme.Domain.Acme;
 using Acme.Domain.Acme.Users;
 using Acme.Domain.Acme.Users.ValueObjects;
 using Acme.Domain.Commons.User;
-using Matt.ResultObject;
 using Matt.SharedKernel.Application.Authorizations;
-using Matt.SharedKernel.Domain;
+using Matt.SharedKernel.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
@@ -20,7 +19,7 @@ public class IdentityService(
     UserManager<IdentityUser> userManager,
     IEmailSender emailSender,
     ILogger<IdentityService> logger
-) : DomainServiceBase, IIdentityService
+) : IIdentityService
 {
     public async Task<IdentityDto?> SignInAsync(
         string email,

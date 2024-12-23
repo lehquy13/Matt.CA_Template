@@ -2,7 +2,7 @@
 using Acme.Domain.Acme.Users.ValueObjects;
 using Acme.Domain.Commons.User;
 using FluentValidation;
-using Matt.ResultObject;
+using Matt.SharedKernel.Results;
 using Matt.SharedKernel.Application.Mediators.Commands;
 using Matt.SharedKernel.Domain.Interfaces;
 

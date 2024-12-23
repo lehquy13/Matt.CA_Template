@@ -3,7 +3,7 @@ using Acme.Application.ServiceImpls.Administrator.Users.Queries;
 using Acme.Domain.Acme.Users;
 using Acme.TestSetup;
 using FluentAssertions;
-using Matt.Paginated;
+using Matt.SharedKernel.Paginations;
 using Moq;
 using Moq.EntityFrameworkCore;
 using Xunit;

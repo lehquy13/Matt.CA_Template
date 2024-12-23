@@ -5,6 +5,7 @@ using Acme.Application.Interfaces;
 using Acme.Infrastructure.Models;
 using Matt.SharedKernel;
 using Matt.SharedKernel.Application.Authorizations;
+using Matt.SharedKernel.Domain;
 using Matt.SharedKernel.Domain.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

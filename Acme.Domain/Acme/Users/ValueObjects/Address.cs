@@ -1,4 +1,4 @@
-﻿using Matt.ResultObject;
+﻿using Matt.SharedKernel.Results;
 using Matt.SharedKernel.Domain.Primitives;
 
 namespace Acme.Domain.Acme.Users.ValueObjects;

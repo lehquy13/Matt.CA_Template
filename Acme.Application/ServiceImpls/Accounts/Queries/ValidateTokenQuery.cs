@@ -1,5 +1,5 @@
 ﻿using Acme.Application.Interfaces;
-using Matt.ResultObject;
+using Matt.SharedKernel.Results;
 using Matt.SharedKernel.Application.Mediators.Queries;
 
 namespace Acme.Application.ServiceImpls.Accounts.Queries;

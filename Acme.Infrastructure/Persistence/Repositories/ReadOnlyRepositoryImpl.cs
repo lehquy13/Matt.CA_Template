@@ -1,5 +1,4 @@
 ﻿using Acme.Infrastructure.Persistence.EntityFrameworkCore;
-using Matt.AutoDI;
 using Matt.SharedKernel.Domain.Interfaces.Repositories;
 using Matt.SharedKernel.Domain.Primitives;
 using Matt.SharedKernel.Domain.Primitives.Abstractions;
@@ -12,9 +11,7 @@ namespace Acme.Infrastructure.Persistence.Repositories;
 internal class ReadOnlyRepositoryImpl<TEntity, TId>(
     AppDbContext appDbContext,
     ILogger<ReadOnlyRepositoryImpl<TEntity, TId>> logger)
-    : IReadOnlyRepository<TEntity, TId>, IOpenGenericService<IReadOnlyRepository<TEntity, TId>>
-    where TEntity : Entity<TId>, IEntity<TId>
-    where TId : notnull
+    : IReadOnlyRepository<TEntity, TId> where TEntity : Entity<TId>, IEntity<TId> where TId : notnull
 {
     protected readonly AppDbContext AppDbContext = appDbContext;
     protected readonly ILogger<ReadOnlyRepositoryImpl<TEntity, TId>> Logger = logger;

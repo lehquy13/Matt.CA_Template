@@ -20,6 +20,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme.Domain.UnitTests", "Ac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme.Application.UnitTests", "Acme.Application.UnitTests\Acme.Application.UnitTests.csproj", "{C38FAE6A-4ACC-478D-BF10-22AB1E577ED9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{67E604A7-E5F1-475E-927B-F9C86C9F75DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme.Aspire.AppHost", "Acme.Aspire.AppHost\Acme.Aspire.AppHost.csproj", "{6BE959D8-7411-4A7C-81A9-BDB7691F4259}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme.Aspire.ServiceDefaults", "Acme.Aspire.ServiceDefaults\Acme.Aspire.ServiceDefaults.csproj", "{FAAB57BB-B800-40C0-80EE-06443B825DF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +40,8 @@ Global
 		{BB99AB27-AA24-4536-9B1F-AD6E4D857486} = {79AEEEC3-F97C-45C0-AF71-9D2A891EF2FD}
 		{84D7DDCA-E627-4A78-A78B-BC801F990B09} = {79AEEEC3-F97C-45C0-AF71-9D2A891EF2FD}
 		{C38FAE6A-4ACC-478D-BF10-22AB1E577ED9} = {79AEEEC3-F97C-45C0-AF71-9D2A891EF2FD}
+		{6BE959D8-7411-4A7C-81A9-BDB7691F4259} = {67E604A7-E5F1-475E-927B-F9C86C9F75DD}
+		{FAAB57BB-B800-40C0-80EE-06443B825DF1} = {67E604A7-E5F1-475E-927B-F9C86C9F75DD}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{EE08569B-8D60-46B9-8525-F4207DA3608A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -68,5 +76,13 @@ Global
 		{C38FAE6A-4ACC-478D-BF10-22AB1E577ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C38FAE6A-4ACC-478D-BF10-22AB1E577ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C38FAE6A-4ACC-478D-BF10-22AB1E577ED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BE959D8-7411-4A7C-81A9-BDB7691F4259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BE959D8-7411-4A7C-81A9-BDB7691F4259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BE959D8-7411-4A7C-81A9-BDB7691F4259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BE959D8-7411-4A7C-81A9-BDB7691F4259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAAB57BB-B800-40C0-80EE-06443B825DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAAB57BB-B800-40C0-80EE-06443B825DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAAB57BB-B800-40C0-80EE-06443B825DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAAB57BB-B800-40C0-80EE-06443B825DF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

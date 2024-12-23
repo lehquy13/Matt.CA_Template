@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Acme.Domain.Acme.Users.ValueObjects;
 using Acme.Domain.Commons.User;
-using Matt.ResultObject;
+using Matt.SharedKernel.Results;
 using Matt.SharedKernel;
 using Matt.SharedKernel.Domain.Interfaces;
 using Matt.SharedKernel.Domain.Primitives.Auditing;

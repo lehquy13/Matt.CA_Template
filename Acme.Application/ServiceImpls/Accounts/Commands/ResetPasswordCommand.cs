@@ -1,6 +1,6 @@
 ﻿using Acme.Domain.Acme.Users;
 using FluentValidation;
-using Matt.ResultObject;
+using Matt.SharedKernel.Results;
 using Matt.SharedKernel.Application.Mediators.Commands;
 using Matt.SharedKernel.Domain.Interfaces;
 using Microsoft.Extensions.Logging;

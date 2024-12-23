@@ -1,7 +1,7 @@
 ﻿using Acme.Domain.Acme;
 using Acme.Domain.Acme.Users;
 using Acme.Domain.Acme.Users.ValueObjects;
-using Matt.ResultObject;
+using Matt.SharedKernel.Results;
 using Matt.SharedKernel.Application.Mediators.Commands;
 using Matt.SharedKernel.Domain.Interfaces;
 

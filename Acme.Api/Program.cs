@@ -1,10 +1,13 @@
 using Acme.Api;
+using Acme.Api.AspireIntegrations;
 using Acme.Application;
+using Acme.Aspire.ServiceDefaults;
 using Acme.Infrastructure;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddAspire();
 
 // Add services to the container.
 builder.Services
@@ -12,7 +15,6 @@ builder.Services
     .AddInfrastructure(builder.Configuration)
     .AddPersistence(builder.Configuration)
     .AddPresentation(builder.Host);
-
 
 var app = builder.Build();
 

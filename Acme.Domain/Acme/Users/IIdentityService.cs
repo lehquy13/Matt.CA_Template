@@ -1,6 +1,6 @@
 ﻿using Acme.Domain.Acme.Users.ValueObjects;
 using Acme.Domain.Commons.User;
-using Matt.ResultObject;
+using Matt.SharedKernel.Results;
 using Matt.SharedKernel.Application.Authorizations;
 using Matt.SharedKernel.Domain.Interfaces;
 using Role = Acme.Domain.Commons.User.Role;

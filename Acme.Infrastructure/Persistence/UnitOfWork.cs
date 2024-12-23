@@ -1,6 +1,7 @@
 using Acme.Infrastructure.Persistence.EntityFrameworkCore;
-using Matt.Auditing;
 using Matt.SharedKernel.Application.Contracts.Interfaces.Infrastructures;
+using Matt.SharedKernel.Auditing;
+using Matt.SharedKernel.Domain;
 using Matt.SharedKernel.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

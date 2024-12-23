@@ -3,9 +3,9 @@ using Acme.Domain.Acme.Users;
 using Acme.Domain.Acme.Users.ValueObjects;
 using Acme.Domain.Commons.User;
 using FluentValidation;
-using Matt.ResultObject;
 using Matt.SharedKernel.Application.Mediators.Commands;
 using Matt.SharedKernel.Domain.Interfaces;
+using Matt.SharedKernel.Results;
 
 namespace Acme.Application.ServiceImpls.Administrator.Users.Commands;
 

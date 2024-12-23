@@ -1,7 +1,7 @@
 ﻿using Acme.Application.ServiceImpls.Administrator.Users.Commands;
 using Acme.Application.ServiceImpls.Administrator.Users.Queries;
 using MapsterMapper;
-using Matt.Paginated;
+using Matt.SharedKernel.Paginations;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

@@ -3,7 +3,7 @@ using Acme.Domain.Acme.Users;
 using Acme.Domain.Acme.Users.ValueObjects;
 using Acme.Domain.Commons.User;
 using FluentAssertions;
-using Matt.ResultObject;
+using Matt.SharedKernel.Results;
 using Matt.SharedKernel.Domain.Interfaces;
 using Moq;
 using Xunit;

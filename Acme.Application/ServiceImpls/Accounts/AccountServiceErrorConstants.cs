@@ -1,4 +1,4 @@
-﻿using Matt.ResultObject;
+﻿using Matt.SharedKernel.Results;
 
 namespace Acme.Application.ServiceImpls.Accounts;
 

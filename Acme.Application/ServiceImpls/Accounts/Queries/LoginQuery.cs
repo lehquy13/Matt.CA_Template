@@ -3,7 +3,7 @@ using Acme.Application.Interfaces;
 using Acme.Domain.Acme.Users;
 using Acme.Domain.Acme.Users.ValueObjects;
 using FluentValidation;
-using Matt.ResultObject;
+using Matt.SharedKernel.Results;
 using Matt.SharedKernel.Application.Mediators.Queries;
 
 namespace Acme.Application.ServiceImpls.Accounts.Queries;

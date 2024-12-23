@@ -11,6 +11,7 @@ using Acme.Infrastructure.Persistence.EntityFrameworkCore;
 using Acme.Infrastructure.Persistence.Repositories;
 using Matt.SharedKernel.Application.Contracts.Interfaces.Infrastructures;
 using Matt.SharedKernel.Domain.Interfaces;
+using Matt.SharedKernel.Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -77,6 +78,8 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IReadDbContext, ReadDbContext>();
+        services.AddScoped(typeof(IReadOnlyRepository<,>), typeof(ReadOnlyRepositoryImpl<,>));
+        services.AddScoped(typeof(IRepository<,>), typeof(RepositoryImpl<,>));
         services.AddScoped<IUserRepository, UserRepository>();
 
         services

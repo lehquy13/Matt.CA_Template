@@ -1,5 +1,5 @@
-﻿using Matt.ResultObject;
-using Matt.SharedKernel.Domain.Interfaces;
+﻿using Matt.SharedKernel.Domain;
+using Matt.SharedKernel.Results;
 using Microsoft.Extensions.Logging;
 using Quartz;
 
